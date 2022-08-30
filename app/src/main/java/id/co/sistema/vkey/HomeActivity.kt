@@ -182,6 +182,7 @@ class HomeActivity : AppCompatActivity() , VosWrapper.Callback{
     private fun encryptExistingFile() {
         try {
             val encryptedFilePath = "${this.filesDir.absolutePath}/encryptedFile.txt"
+                createEncryptedFile(encryptedFilePath)
                 java.io.FileOutputStream(encryptedFilePath).use {
                 it.write(STR_INPUT.toByteArray())
                 it.close()
@@ -189,10 +190,12 @@ class HomeActivity : AppCompatActivity() , VosWrapper.Callback{
 
 
             SecureFileIO.encryptFile(encryptedFilePath , PASSWORD)
+            var textString = ""
+            textString = FileInputStream(encryptedFilePath)
+                .bufferedReader().use { it.readText() }
             val decrypt = SecureFileIO.decryptFile(encryptedFilePath , PASSWORD)
 
-
-            Log.d("existfile", "test $decrypt")
+            Log.d("existfile", "test $textString")
 
         } catch (e: Exception) {
             Log.e("existfile", e.message.toString())
