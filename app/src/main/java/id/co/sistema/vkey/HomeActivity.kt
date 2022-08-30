@@ -190,10 +190,15 @@ class HomeActivity : AppCompatActivity() , VosWrapper.Callback{
 
 
             SecureFileIO.encryptFile(encryptedFilePath , PASSWORD)
+            val dec = SecureFileIO.decryptFile(encryptedFilePath , PASSWORD)
+
+            // to print encrypted file
             var textString = ""
             textString = FileInputStream(encryptedFilePath)
                 .bufferedReader().use { it.readText() }
-            val decrypt = SecureFileIO.decryptFile(encryptedFilePath , PASSWORD)
+
+            //to print decrypted file
+            val dc = String(dec)
 
             Log.d("existfile", "test $textString")
 
